@@ -50,6 +50,7 @@ class HomePage extends StatelessWidget {
           ),
           actions: [
             IconButton(
+              tooltip: 'Start Fresh',
               icon: Icon(Icons.refresh),
               onPressed: () async {
                 await showDialog(
@@ -94,6 +95,7 @@ class HomePage extends StatelessWidget {
                       );
                     },
                     child: Icon(Icons.copy),
+                    tooltip: 'Copy generated code to clipboard',
                   )
                 : Container(),
         body: Center(
@@ -139,6 +141,7 @@ class HomePage extends StatelessWidget {
                           height: 50,
                         ),
                         FloatingActionButton(
+                          tooltip: 'Add a new field',
                           onPressed: () {
                             final uniqueKey = UniqueKey();
                             textFieldProvider.addTextField(
@@ -180,6 +183,7 @@ class HomePage extends StatelessWidget {
                                         .removeTextField(uniqueKey);
                                   },
                                   child: Icon(Icons.remove),
+                                  tooltip: 'Remove this field',
                                 ),
                               ],
                             );

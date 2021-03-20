@@ -2,7 +2,12 @@
 
 <p align="center">:fuelpump: A tool to generate Flutter Change Notifiers.</p>
 
+<p align="center"><img src="web-demo.gif"></p>
+
 ---
+
+## Supported Platforms
+- Web (Not Responsive for Mobile Web)
 
 ## Dependencies
 

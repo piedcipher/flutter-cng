@@ -12,8 +12,31 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.refresh),
-              onPressed: () {
-                textFieldProvider.clear();
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    actionsPadding: EdgeInsets.all(16),
+                    title: Text('Do you want to start fresh?'),
+                    content:
+                        Text('TextFields & Generated Code would be removed.'),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          textFieldProvider.clear();
+                          Navigator.pop(context);
+                        },
+                        child: Text('Yes'),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('No'),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
           ],

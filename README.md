@@ -1,10 +1,16 @@
-# flutter_change_notifier_gen
+<h1 align="center">flutter-cng</h1>
 
-A new Flutter application.
+<p align="center">:fuelpump: A tool to generate Flutter Change Notifiers.</p>
+
+---
+
+## Dependencies
+
+- [provider](https://pub.dev/packages/provider)
+- [flutter_highlight](https://pub.dev/packages/flutter_highlight)
+- [google_fonts](https://pub.dev/packages/google_fonts)
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 

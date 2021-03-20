@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class TextFieldProvider with ChangeNotifier {
   Map<UniqueKey, List<Widget>> _textFieldCustomWidgets = {};
   String _generatedCode = '';
+  bool _soundNullSafety = false;
 
-  Map<UniqueKey, List<Widget>> get textFieldCustomWidgets => _textFieldCustomWidgets;
+  Map<UniqueKey, List<Widget>> get textFieldCustomWidgets =>
+      _textFieldCustomWidgets;
 
   String get generatedCode => _generatedCode;
+
+  bool get soundNullSafety => _soundNullSafety;
 
   void addTextField(UniqueKey uniqueKey, List<Widget> widgets) {
     _textFieldCustomWidgets[uniqueKey] = widgets;
@@ -43,13 +47,18 @@ class MyProvider extends ChangeNotifier {
 
     _textFieldCustomWidgets.values.forEach((e) {
       count++;
-      var variableName = (e[0] as TextFormField).controller.text;
+      var variableName = (e[1] as TextFormField).controller.text.trim();
       variableName = variableName.isEmpty ? 'v$count' : variableName;
-      var dataType = (e[1] as TextFormField).controller.text;
-      dataType = dataType.isEmpty ? 'dynamic' : dataType;
-
+      var dataType = (e[0] as TextFormField).controller.text.trim();
+      dataType = dataType.isEmpty
+          ? 'dynamic'
+          : soundNullSafety
+              ? '$dataType?'
+              : dataType;
+      var value = (e[2] as TextFormField).controller.text.trim();
+      value = value.isNotEmpty ? ' = $value' : '';
       _generatedCode += '''
-    $dataType _$variableName;
+    $dataType _$variableName$value;
 
     $dataType get $variableName => _$variableName;
 
@@ -71,5 +80,10 @@ ${count == _textFieldCustomWidgets.length ? '' : '\n'}''';
       _generatedCode = '';
       generator();
     }
+  }
+
+  set soundNullSafety(bool soundNullSafety) {
+    _soundNullSafety = soundNullSafety;
+    generator();
   }
 }

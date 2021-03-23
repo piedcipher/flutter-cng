@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_change_notifier_gen/providers/app_provider_change_notifier.dart';
-import 'package:flutter_change_notifier_gen/providers/text_field_change_notifier.dart';
+import 'package:flutter_change_notifier_gen/change_notifiers/app_provider_change_notifier.dart';
+import 'package:flutter_change_notifier_gen/change_notifiers/text_field_change_notifier.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer2<TextFieldProvider, AppProvider>(
-      builder: (context, textFieldProvider, appProvider, _) => Scaffold(
+    return Consumer2<TextFieldChangeNotifier, AppChangeNotifier>(
+      builder: (context, textFieldChangeNotifier, appChangeNotifier, _) =>
+          Scaffold(
         bottomNavigationBar: Container(
           padding: EdgeInsets.all(8),
           color: Theme.of(context).primaryColor,
@@ -23,9 +24,9 @@ class HomePage extends StatelessWidget {
               ),
             ),
             icon: Switch(
-              value: textFieldProvider.soundNullSafety,
+              value: textFieldChangeNotifier.soundNullSafety,
               onChanged: (_value) {
-                textFieldProvider.soundNullSafety = _value;
+                textFieldChangeNotifier.soundNullSafety = _value;
               },
             ),
             onPressed: null,
@@ -36,15 +37,15 @@ class HomePage extends StatelessWidget {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              appProvider.brightness =
-                  appProvider.brightness == Brightness.light
+              appChangeNotifier.brightness =
+                  appChangeNotifier.brightness == Brightness.light
                       ? Brightness.dark
                       : Brightness.light;
             },
-            icon: Icon(appProvider.brightness == Brightness.light
+            icon: Icon(appChangeNotifier.brightness == Brightness.light
                 ? Icons.nightlight_round
                 : Icons.wb_sunny),
-            tooltip: appProvider.brightness == Brightness.light
+            tooltip: appChangeNotifier.brightness == Brightness.light
                 ? 'Switch to Dark Theme'
                 : 'Switch to Light Theme',
           ),
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
                     actions: [
                       ElevatedButton(
                         onPressed: () {
-                          textFieldProvider.clear();
+                          textFieldChangeNotifier.clear();
                           Navigator.pop(context);
                         },
                         child: Text('Yes'),
@@ -81,23 +82,23 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        floatingActionButton:
-            textFieldProvider.textFieldCustomWidgets.isNotEmpty
-                ? FloatingActionButton(
-                    onPressed: () async {
-                      await Clipboard.setData(
-                        ClipboardData(text: textFieldProvider.generatedCode),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Copied generated code to clipboard'),
-                        ),
-                      );
-                    },
-                    child: Icon(Icons.copy),
-                    tooltip: 'Copy generated code to clipboard',
-                  )
-                : Container(),
+        floatingActionButton: textFieldChangeNotifier
+                .textFieldCustomWidgets.isNotEmpty
+            ? FloatingActionButton(
+                onPressed: () async {
+                  await Clipboard.setData(
+                    ClipboardData(text: textFieldChangeNotifier.generatedCode),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Copied generated code to clipboard'),
+                    ),
+                  );
+                },
+                child: Icon(Icons.copy),
+                tooltip: 'Copy generated code to clipboard',
+              )
+            : Container(),
         body: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +111,7 @@ class HomePage extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        ...textFieldProvider.textFieldCustomWidgets.values
+                        ...textFieldChangeNotifier.textFieldCustomWidgets.values
                             .map(
                               (e) => Column(
                                 children: [
@@ -144,12 +145,12 @@ class HomePage extends StatelessWidget {
                           tooltip: 'Add a new field',
                           onPressed: () {
                             final uniqueKey = UniqueKey();
-                            textFieldProvider.addTextField(
+                            textFieldChangeNotifier.addTextField(
                               uniqueKey,
                               [
                                 TextFormField(
                                   onChanged: (_) {
-                                    textFieldProvider.generator();
+                                    textFieldChangeNotifier.generator();
                                   },
                                   controller: TextEditingController(),
                                   decoration: InputDecoration(
@@ -159,7 +160,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 TextFormField(
                                   onChanged: (_) {
-                                    textFieldProvider.generator();
+                                    textFieldChangeNotifier.generator();
                                   },
                                   controller: TextEditingController(),
                                   decoration: InputDecoration(
@@ -169,7 +170,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 TextFormField(
                                   onChanged: (_) {
-                                    textFieldProvider.generator();
+                                    textFieldChangeNotifier.generator();
                                   },
                                   controller: TextEditingController(),
                                   decoration: InputDecoration(
@@ -179,7 +180,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 FloatingActionButton(
                                   onPressed: () {
-                                    textFieldProvider
+                                    textFieldChangeNotifier
                                         .removeTextField(uniqueKey);
                                   },
                                   child: Icon(Icons.remove),
@@ -204,12 +205,13 @@ class HomePage extends StatelessWidget {
                   margin: EdgeInsets.all(16),
                   child: SingleChildScrollView(
                     child: HighlightView(
-                      textFieldProvider.generatedCode,
+                      textFieldChangeNotifier.generatedCode,
                       padding: EdgeInsets.all(8),
                       language: 'dart',
-                      theme: themeMap[appProvider.brightness == Brightness.light
-                          ? 'github'
-                          : 'darcula'],
+                      theme: themeMap[
+                          appChangeNotifier.brightness == Brightness.light
+                              ? 'github'
+                              : 'darcula'],
                       textStyle: TextStyle(
                           fontSize: 20,
                           height: 1.5,

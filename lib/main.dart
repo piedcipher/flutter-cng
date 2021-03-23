@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_change_notifier_gen/providers/app_provider.dart';
-import 'package:flutter_change_notifier_gen/providers/text_field_provider.dart';
-import 'package:flutter_change_notifier_gen/screens/home_page.dart';
+import 'package:flutter_change_notifier_gen/change_notifiers/app_provider_change_notifier.dart';
+import 'package:flutter_change_notifier_gen/change_notifiers/text_field_change_notifier.dart';
+import 'package:flutter_change_notifier_gen/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -10,11 +10,11 @@ void main() {
     kIsWeb
         ? MultiProvider(
             providers: [
-              ChangeNotifierProvider<TextFieldProvider>(
-                create: (context) => TextFieldProvider()..generator(),
+              ChangeNotifierProvider<TextFieldChangeNotifier>(
+                create: (context) => TextFieldChangeNotifier()..generator(),
               ),
-              ChangeNotifierProvider<AppProvider>(
-                create: (context) => AppProvider(),
+              ChangeNotifierProvider<AppChangeNotifier>(
+                create: (context) => AppChangeNotifier(),
               ),
             ],
             child: MyApp(),
@@ -32,17 +32,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppProvider>(
-      builder: (context, appProvider, _) => MaterialApp(
+    return Consumer<AppChangeNotifier>(
+      builder: (context, appChangeNotifier, _) => MaterialApp(
         theme: ThemeData(
-          brightness: appProvider.brightness,
+          brightness: appChangeNotifier.brightness,
           primaryColor: Colors.indigo,
           primaryColorDark: Colors.indigo[800],
-          accentColor: appProvider.brightness == Brightness.dark
+          accentColor: appChangeNotifier.brightness == Brightness.dark
               ? Colors.yellowAccent
               : Colors.pinkAccent,
         ),
-        home: HomePage(),
+        home: HomeScreen(),
       ),
     );
   }

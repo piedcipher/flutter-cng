@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextFieldProvider with ChangeNotifier {
+class TextFieldChangeNotifier with ChangeNotifier {
   Map<UniqueKey, List<Widget>> _textFieldCustomWidgets = {};
   String _generatedCode = '';
   bool _soundNullSafety = false;

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_change_notifier_gen/change_notifiers/app_provider_change_notifier.dart';
+import 'package:flutter_change_notifier_gen/change_notifiers/app_change_notifier.dart';
 import 'package:flutter_change_notifier_gen/change_notifiers/text_field_change_notifier.dart';
 import 'package:flutter_change_notifier_gen/screens/home_screen.dart';
 import 'package:provider/provider.dart';

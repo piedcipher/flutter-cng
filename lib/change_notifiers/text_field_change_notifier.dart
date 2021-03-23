@@ -31,7 +31,7 @@ class TextFieldChangeNotifier with ChangeNotifier {
       _generatedCode = '''
 import 'package:flutter/material.dart';
 
-class MyProvider extends ChangeNotifier {
+class MyChangeNotifier extends ChangeNotifier {
 
 }''';
       notifyListeners();
@@ -42,7 +42,7 @@ class MyProvider extends ChangeNotifier {
     _generatedCode = '''
 import 'package:flutter/material.dart';
 
-class MyProvider extends ChangeNotifier {
+class MyChangeNotifier extends ChangeNotifier {
 ''';
 
     _textFieldCustomWidgets.values.forEach((e) {

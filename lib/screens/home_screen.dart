@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_change_notifier_gen/providers/app_provider.dart';
-import 'package:flutter_change_notifier_gen/providers/text_field_provider.dart';
+import 'package:flutter_change_notifier_gen/providers/app_provider_change_notifier.dart';
+import 'package:flutter_change_notifier_gen/providers/text_field_change_notifier.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:google_fonts/google_fonts.dart';

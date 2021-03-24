@@ -54,6 +54,14 @@ class HomeScreen extends StatelessWidget {
               tooltip: 'Start Fresh',
               icon: Icon(Icons.refresh),
               onPressed: () async {
+                if (textFieldChangeNotifier.textFieldCustomWidgets.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Nothing to clear!'),
+                    ),
+                  );
+                  return;
+                }
                 await showDialog(
                   context: context,
                   builder: (context) => AlertDialog(

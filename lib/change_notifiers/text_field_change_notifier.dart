@@ -4,6 +4,7 @@ class TextFieldChangeNotifier with ChangeNotifier {
   Map<UniqueKey, List<Widget>> _textFieldCustomWidgets = {};
   String _generatedCode = '';
   bool _soundNullSafety = false;
+  String _generatedCodeClassName = 'MyChangeNotifier';
 
   Map<UniqueKey, List<Widget>> get textFieldCustomWidgets =>
       _textFieldCustomWidgets;
@@ -11,6 +12,13 @@ class TextFieldChangeNotifier with ChangeNotifier {
   String get generatedCode => _generatedCode;
 
   bool get soundNullSafety => _soundNullSafety;
+
+  String get generatedCodeClassName => _generatedCodeClassName;
+
+  set generatedCodeClassName(String generatedCodeClassName) {
+    _generatedCodeClassName = generatedCodeClassName;
+    generator();
+  }
 
   void addTextField(UniqueKey uniqueKey, List<Widget> widgets) {
     _textFieldCustomWidgets[uniqueKey] = widgets;
@@ -31,7 +39,7 @@ class TextFieldChangeNotifier with ChangeNotifier {
       _generatedCode = '''
 import 'package:flutter/material.dart';
 
-class MyChangeNotifier extends ChangeNotifier {
+class $_generatedCodeClassName extends ChangeNotifier {
 
 }''';
       notifyListeners();
@@ -42,7 +50,7 @@ class MyChangeNotifier extends ChangeNotifier {
     _generatedCode = '''
 import 'package:flutter/material.dart';
 
-class MyChangeNotifier extends ChangeNotifier {
+class $_generatedCodeClassName extends ChangeNotifier {
 ''';
 
     _textFieldCustomWidgets.values.forEach((e) {

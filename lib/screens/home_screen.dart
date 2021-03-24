@@ -119,6 +119,19 @@ class HomeScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        TextFormField(
+                            onChanged: (_value) {
+                            textFieldChangeNotifier.generatedCodeClassName =
+                                _value.trim().isEmpty ? 'MyChangeNotifier' : _value;
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Class Name',
+                            labelText: 'Class Name',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
                         ...textFieldChangeNotifier.textFieldCustomWidgets.values
                             .map(
                               (e) => Column(

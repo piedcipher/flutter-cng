@@ -120,9 +120,11 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                            onChanged: (_value) {
+                          onChanged: (_value) {
                             textFieldChangeNotifier.generatedCodeClassName =
-                                _value.trim().isEmpty ? 'MyChangeNotifier' : _value;
+                                _value.trim().isEmpty
+                                    ? 'MyChangeNotifier'
+                                    : _value;
                           },
                           decoration: InputDecoration(
                             hintText: 'Class Name',
@@ -232,7 +234,7 @@ class HomeScreen extends StatelessWidget {
                       theme: themeMap[
                           appChangeNotifier.brightness == Brightness.light
                               ? 'github'
-                              : 'darcula'],
+                              : 'darcula']!,
                       textStyle: TextStyle(
                           fontSize: 20,
                           height: 1.5,

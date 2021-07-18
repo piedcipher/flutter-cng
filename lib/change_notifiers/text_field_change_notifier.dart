@@ -55,15 +55,15 @@ class $_generatedCodeClassName extends ChangeNotifier {
 
     _textFieldCustomWidgets.values.forEach((e) {
       count++;
-      var variableName = (e[1] as TextFormField).controller.text.trim();
+      var variableName = (e[1] as TextFormField).controller!.text.trim();
       variableName = variableName.isEmpty ? 'v$count' : variableName;
-      var dataType = (e[0] as TextFormField).controller.text.trim();
+      var dataType = (e[0] as TextFormField).controller!.text.trim();
       dataType = dataType.isEmpty
           ? 'dynamic'
           : soundNullSafety
               ? '$dataType?'
               : dataType;
-      var value = (e[2] as TextFormField).controller.text.trim();
+      var value = (e[2] as TextFormField).controller!.text.trim();
       value = value.isNotEmpty ? ' = $value' : '';
       _generatedCode += '''
     $dataType _$variableName$value;
